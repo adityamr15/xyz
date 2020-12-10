@@ -1,1 +1,63 @@
-class StorageService{constructor(e,t){this.storageType=e,this.storagePrefix=t}setItem(e,t){this.storageType.setItem(this.storagePrefix+e,t)}getItem(e){return this.storageType.getItem(this.storagePrefix+e)}removeItem(e){this.storageType.removeItem(this.storagePrefix+e)}clear(){const e=[],t=this.storagePrefix;for(let r=0;r<this.storageType.length;r++)this.storageType.key(r).substring(0,t.length)===t&&e.push(this.storageType.key(r));for(let t=0;t<e.length;t++)this.storageType.removeItem(e[t])}get length(){let e=0;const t=this.storagePrefix;for(let r=0;r<this.storageType.length;r++)this.storageType.key(r).substring(0,t.length)===t&&e++;return e}}!function(){try{const e=document.currentScript.getAttribute("prefix"),t=(new StorageService(localStorage,e),new StorageService(sessionStorage,e));new URLSearchParams(window.location.search).get("new")&&t.clear()}catch(e){}}();
+class StorageService {
+  constructor(storageType, prefix) {
+      this.storageType = storageType;
+      this.storagePrefix = prefix;
+  }
+
+  setItem(key, data) {
+      this.storageType.setItem(this.storagePrefix + key, data);
+  }
+
+  getItem(key) {
+      return this.storageType.getItem(this.storagePrefix + key);
+  }
+
+  removeItem(key) {
+      this.storageType.removeItem(this.storagePrefix + key);
+  }
+
+  clear() {
+      const arr = []; // Array to hold the keys
+      const storagePrefix = this.storagePrefix;
+
+      for (let i = 0; i < this.storageType.length; i++) {
+          if (this.storageType.key(i).substring(0, storagePrefix.length) === storagePrefix) {
+              arr.push(this.storageType.key(i));
+          }
+      }
+
+      // Iterate over arr and remove the items by key
+      for (let i = 0; i < arr.length; i++) {
+          this.storageType.removeItem(arr[i]);
+      }
+  }
+
+  get length() {
+      let storageCount = 0;
+      const storagePrefix = this.storagePrefix;
+
+      for (let i = 0; i < this.storageType.length; i++) {
+          if (this.storageType.key(i).substring(0, storagePrefix.length) === storagePrefix) {
+              storageCount++;
+          }
+      }
+
+      return storageCount;
+  }
+}
+
+(function () {
+  try {
+      const prefix = document.currentScript.getAttribute('prefix');
+      const _localStorage_ = new StorageService(localStorage, prefix);
+      const _sessionStorage_ = new StorageService(sessionStorage, prefix);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const isCreateNewQuotation = urlParams.get('new');
+    debugger;
+      if (!!isCreateNewQuotation) {
+          // _localStorage_.clear();
+          _sessionStorage_.clear();
+      }
+  } catch (e) {}
+})();
