@@ -53,7 +53,7 @@ class StorageService {
       const _sessionStorage_ = new StorageService(sessionStorage, prefix);
       const url = window.location.href;
       const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
-    debugger;
+
       if (!!isCreateNewQuotation) {
           // _localStorage_.clear();
           _sessionStorage_.clear();
