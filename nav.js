@@ -51,9 +51,7 @@ class StorageService {
       const prefix = document.currentScript.getAttribute('prefix');
       const _localStorage_ = new StorageService(localStorage, prefix);
       const _sessionStorage_ = new StorageService(sessionStorage, prefix);
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const isCreateNewQuotation = urlParams.get('new');
+      const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
     debugger;
       if (!!isCreateNewQuotation) {
           // _localStorage_.clear();
