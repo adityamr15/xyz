@@ -47,13 +47,14 @@ class StorageService {
 }
 
 (function () {
+  window.__prefixStorage__ = document.currentScript.getAttribute('prefix')
   const clear = function () {
     try {
       const url = window.location.href;
       const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
 
       if (!!isCreateNewQuotation) {
-        const prefix = document.currentScript.getAttribute('prefix');
+        const prefix = window.__prefixStorage__;
         const _localStorage_ = new StorageService(localStorage, prefix);
         const _sessionStorage_ = new StorageService(sessionStorage, prefix);
         // _localStorage_.clear();
