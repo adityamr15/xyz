@@ -48,21 +48,19 @@ class StorageService {
 
 (function () {
   const clear = function () {
-    // _localStorage_.clear();
-    _sessionStorage_.clear();
-  };
-  
-  addEventListener('hashchange', clear, false);
-  
-  try {
-      const prefix = document.currentScript.getAttribute('prefix');
-      const _localStorage_ = new StorageService(localStorage, prefix);
-      const _sessionStorage_ = new StorageService(sessionStorage, prefix);
+    try {
       const url = window.location.href;
       const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
 
       if (!!isCreateNewQuotation) {
-          clear();
+        const prefix = document.currentScript.getAttribute('prefix');
+        const _localStorage_ = new StorageService(localStorage, prefix);
+        const _sessionStorage_ = new StorageService(sessionStorage, prefix);
+        // _localStorage_.clear();
+        _sessionStorage_.clear();
       }
-  } catch (e) {}
+    } catch(e) {}
+  };
+  clear();
+  addEventListener('hashchange', clear, false);
 })();
