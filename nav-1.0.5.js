@@ -47,6 +47,13 @@ class StorageService {
 }
 
 (function () {
+  const clear = function () {
+    // _localStorage_.clear();
+    _sessionStorage_.clear();
+  };
+  
+  addEventListener('hashchange', clear, false);
+  
   try {
       const prefix = document.currentScript.getAttribute('prefix');
       const _localStorage_ = new StorageService(localStorage, prefix);
@@ -55,8 +62,7 @@ class StorageService {
       const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
 
       if (!!isCreateNewQuotation) {
-          // _localStorage_.clear();
-          _sessionStorage_.clear();
+          clear();
       }
   } catch (e) {}
 })();
