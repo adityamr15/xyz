@@ -59,6 +59,7 @@ class StorageService {
         const _sessionStorage_ = new StorageService(sessionStorage, prefix);
         // _localStorage_.clear();
         _sessionStorage_.clear();
+        window.location.reload();
       }
     } catch(e) {}
   };
