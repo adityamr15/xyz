@@ -50,20 +50,19 @@ class StorageService {
   window.__prefixStorage__ = document.currentScript.getAttribute('prefix')
   const clear = function () {
     try {
-      const url = window.location.href;
-      const isCreateNewQuotation = new URL(`https://amr.com?${url.split("?")[1]}`).searchParams.get("new");
+      const rawUrl = window.location.href.split('?');
+      const url = rawUrl[0];
+      const isCreateNewQuotation = new URL(`https://amr.com?${rawUrl[1]}`).searchParams.get("new");
 
       if (!!isCreateNewQuotation) {
         const prefix = window.__prefixStorage__;
         const _localStorage_ = new StorageService(localStorage, prefix);
-        const _sessionStorage_ = new StorageService(sessionStorage, prefix);
-        
-        if (_sessionStorage_.length > 0) {
-          window.location.reload();
-        }
-        
+        const _sessionStorage_ = new StorageService(sessionStorage, prefix);        
         // _localStorage_.clear();
         _sessionStorage_.clear();
+        
+        window.location.href = url;
+        window.location.reload();
       }
     } catch(e) {}
   };
