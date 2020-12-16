@@ -57,9 +57,13 @@ class StorageService {
         const prefix = window.__prefixStorage__;
         const _localStorage_ = new StorageService(localStorage, prefix);
         const _sessionStorage_ = new StorageService(sessionStorage, prefix);
+        
+        if (_sessionStorage_.length > 0) {
+          window.location.reload();
+        }
+        
         // _localStorage_.clear();
         _sessionStorage_.clear();
-        window.location.reload();
       }
     } catch(e) {}
   };
